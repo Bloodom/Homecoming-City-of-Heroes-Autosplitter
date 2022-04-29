@@ -1,10 +1,10 @@
 // Works on Homecoming: City of Heroes version 27.3.4798.
 // Poorly cobbled together and maintained by Bloodom#8540 on discord, let me know if you have questions or tips to improve this!
 
-/* Known Issues: CoT doesn't currently split upon mission complete due to being a timed mission (value prior to mission complete is constantly changing) and not having a reward window pop-up. Missions can fail to split if waypointing to somewhere on the overworld map (causing it to be named in the Navigation
-Status window, overriding anything that isn't a mission), since a majority of splits are triggered by the nav. status becoming Return to Contact or blank; a workaround has been implemented for doing this in the Shadow Shard but other zones may need to be looked at if its a common issue. Moreover, if you aren't 
-the leader, the autosplitter can fail to split if the leader assigns a mission before you fully load out of a mission (effectively making the mission into an auto-assigned mission for you); many of the common places this occurs have been accounted for, but many still exist. Missions that involve clicking a object 
-in an overworld zone have separate MissionSelected values for when you're in that zone and not; this has been accounted for in Faathim, but there may be more instances I haven't thought of. */
+/* Known Issues: 1. CoT doesn't currently split upon mission complete due to being a timed mission (value prior to mission complete is constantly changing) and not having a reward window pop-up. 
+2. Missions can fail to split if waypointing to somewhere on the overworld map (causing it to be named in the Navigation Status window, overriding anything that isn't a mission), since a majority of splits are triggered by the nav. status becoming Return to Contact or blank; a workaround has been implemented for doing this in the Shadow Shard but other zones may need to be looked at if its a common issue. 
+3. Moreover, if you aren't the leader, the autosplitter can fail to split if the leader assigns a mission before you fully load out of a mission (effectively making the mission into an auto-assigned mission for you); many of the common places this occurs have been accounted for, but many still exist. 
+4. Missions that involve clicking a object in an overworld zone have separate MissionSelected values for when you're in that zone and not; this has been accounted for in Faathim, but there may be more instances I haven't thought of. */
 
 state("cityofheroes", "Homecoming")
 {
