@@ -238,7 +238,7 @@ init
 start
 {
     // Starts the split once the TF/SF/Trial is started.
-    if(old.TeamLock == vars.Locked && current.TeamLock != vars.Locked)
+    if(old.TeamLock == vars.Unlocked && current.TeamLock != vars.Unlocked)
     {
         //print("Run Started");
         return true;
