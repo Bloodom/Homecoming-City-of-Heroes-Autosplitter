@@ -33,7 +33,7 @@ startup
     vars.MissionComplete = 269502050;
     vars.ReturnToContact = 1068641;
     vars.NoMission = 16777216;
-    vars.Locked = 0;
+    vars.Unlocked = 0;
     vars.NoPopUp = 4;
 
     // List of integers associated with the MissionSelected value of a location on the overworld map.
@@ -305,7 +305,7 @@ split
 reset
 {
     // Resets the split upon quitting a TF/SF/Trial. 
-    if(old.TeamLock != vars.Locked && current.TeamLock == vars.Locked)
+    if(old.TeamLock != vars.Unlocked && current.TeamLock == vars.Unlocked)
     {
         //print("Team Unlocked");
         return true;
