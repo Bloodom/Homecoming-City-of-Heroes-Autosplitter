@@ -1,4 +1,4 @@
-// Works on Homecoming: City of Heroes version 27.3.4798.
+// Works on Homecoming version 27.3.4798, Beta version 27.3.4709, Cryptic version 27.4.4834.
 // Poorly cobbled together and maintained by Bloodom#8540 on discord, let me know if you have questions, requests for sub-objectives, or tips to improve this!
 
 /* Known Issues: 
@@ -10,7 +10,7 @@
 state("cityofheroes", "Homecoming")
 {
     int MissionSelected: 0xC0F530; // Navigation Status Window. MissionSelected should be 1068641 on Return to Contact, 16777216 on no mission, and 269502050 when mission is complete but the player is still in the mission (as well as other niche cases).
-    int TeamLock: 0xC11A02; // Team is locked/unlocked. TeamLock value should be 2031616 when the team is locked, and change to 2042374 (or 2042373) when unlocked (the value is 2031616 when in base, 0 when in loading and team is locked, and 10758 (or 10757) when in loading into base or LFGing and team is unlocked).
+    int TeamLock: 0xC11A02; // Team is locked/unlocked. TeamLock value should be 2031616 when the team is locked, and change to 2042374 (through 2042382) when unlocked (the value is 2031616 when in base, 0 when in loading and team is locked, and 10758 (through 10766) when in loading into base or LFGing and team is unlocked). To find, need to search 2 Byte of the 10758-related value and 0 when in mission.
     int PopUp: 0x9C9578; // TF/SF/Trial completion pop-up. This address value will be 0 upon loading into a zone with no pop-up, < 400 when a mission pop-up, teleport prompt, hide prompt, or TT prompt appears, and > 400 on TF/SF/Trial complete pop-up. If re-finding this address, the value is often 316 on quit prompt.
 }
 
@@ -23,9 +23,9 @@ state("cityofheroes", "Beta")
 
 state("cityofheroes", "Cryptic")
 {
-    int MissionSelected: 0xBCF780; 
-    int TeamLock: 0xBD1C5A; 
-    int PopUp: 0x991B78; 
+    int MissionSelected: 0xBCFA70; 
+    int TeamLock: 0xBD1F4A; 
+    int PopUp: 0x991E38; 
 }
 
 startup
