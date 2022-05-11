@@ -5,7 +5,7 @@
 1. Missions can fail to split if waypointing to somewhere on the overworld map, since a majority of splits are triggered by the navigation status becoming Return to Contact or blank (waypoints have priority over anything that isn't an active mission in the Navigation Status window); a workaround has been implemented for doing this in the Shadow Shard——but other zones may need to be looked at if its a common issue. 
 2. If you aren't the leader, the autosplitter can fail to split if the leader assigns a mission before you fully load out of a mission (effectively making the mission into an auto-assigned mission from your perspective); many of the common places this occurs have been accounted for, but many still exist. 
 3. Missions that involve clicking a object in an overworld zone have separate MissionSelected values for when you're in that zone and not (this can lead to double splitting); this has been accounted for in Faathim and Justin Augustine, but there may be more instances I haven't thought of.
-4. If you play with a UI Scale higher than 145%, final splits will not trigger. */
+4. If you play with a UI Scale higher than 147%, final splits will not trigger (assuming Window Scale of 100%, lower is fine but higher is more likely to cause issues). The final split time can be added after the run in Edit Splits if changing this setting is non-negotiable (also get your eyes checked). */
 
 state("cityofheroes", "Homecoming")
 {
