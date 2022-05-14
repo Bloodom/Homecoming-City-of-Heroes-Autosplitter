@@ -1,4 +1,4 @@
-Autosplitter confirmed working on Homecoming: version 27.3.4798, Beta version 27.3.4709, Cryptic version 27.4.4834 (check HC Speedrunning discord for current status of autosplitter)
+Autosplitter confirmed working on Homecoming: version 27.3.4798, Beta version 27.3.4709, Cryptic version 27.4.4834 (check HC Speedrunning discord for current status of autosplitter).
 Cobbled together and maintained by Bloodom#8540 on discord, let me know if you have questions, requests for sub-objectives, or tips to improve this!
 
 **Note that you can edit the split names and layout, but changing the amount of splits in a particular run will interfere with the autosplitter.**
