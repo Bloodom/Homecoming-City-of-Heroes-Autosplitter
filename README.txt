@@ -16,7 +16,7 @@ Activating the Autosplitter:
 
 5. Right click on the split and press "Edit Splits," ensure that the setting under "Attempts" states "Deactivate;" if not, click "Activate."
 6. Right click on the split and press "Save Splits."
-7. Open your "Solo," "Duo," or "Any%" split file of choice and enjoy!
+7. Open the "Solo," "Duo," or "Any%" split file of choice and enjoy!
 
 Additional Settings can be found through Edit Splits > Settings (next to Activate/Deactivate):
 
