@@ -5,21 +5,24 @@ state("cityofheroes", "Homecoming")
 {
     int MissionSelected: 0xC0F530; // Navigation Status Window. MissionSelected should be 1068641 on Return to Contact, 16777216 on no mission, and 269502050 when mission is complete but the player is still in the mission (as well as other niche cases).
     int TeamLock: 0xC11A02; // Team is locked/unlocked. TeamLock value should be 2031616 when the team is locked, and change to 2042374 (through 2042382) when unlocked (the value is 2031616 when in base, 0 when in loading and team is locked, and 10758 (through 10766) when in loading into base or LFGing and team is unlocked). To find, need to search 2 Byte of the 10758-related value and 0 when in mission.
+    int Zone: 0x8A2174;
     int PopUp: 0x9C9578; // TF/SF/Trial completion pop-up. This address value will be 0 upon loading into a zone with no pop-up, < 400 when a mission pop-up, teleport prompt, hide prompt, or TT prompt appears, and > 400 on TF/SF/Trial complete pop-up. If re-finding this address, the value is often 316 on quit prompt.
 }
 
 state("cityofheroes", "Beta")
 {
     int MissionSelected: 0xC0E530; 
-    int TeamLock: 0xC109FE; 
+    int TeamLock: 0xC109FE;
+    int Zone: 0x8A1174;
     int PopUp: 0x9C8578; 
 }
 
 state("cityofheroes", "Cryptic")
 {
-    int MissionSelected: 0xBCFA70; 
-    int TeamLock: 0xBD1F4A; 
-    int PopUp: 0x991E38; 
+    int MissionSelected: 0xBCFB00; 
+    int TeamLock: 0xBD1FDA; 
+    int Zone: 0x86A174;
+    int PopUp: 0x991E78; 
 }
 
 startup
@@ -142,7 +145,7 @@ startup
         /* Synapse */ -1456986590, -148312007, 1697018688, 1126714614, 875046629, 2032701202,
         /* Penelope Yin */ -500204358,
         /* Moonfire */ -954086547, 690467466, 1864490048,
-        /* SF Op. Renault */ -1842745962, 2066277709, -1423628856, -534556122, -1993822432,
+        /* SF Op. Renault */ -1842745962, -1423628856, -534556122, -1993822432,
         /* Citadel */ -1574452042, 
         /* Ernesto Hess */ -1188651435, -1104796329, 1764164503,
         /* Manticore */ -2044431247, 975869641, 120059257, 1445430688, 1462234495,
@@ -330,7 +333,7 @@ isLoading
 reset
 {
     // Resets the split upon quitting a TF/SF/Trial. 
-    if(current.TeamLock > vars.Unlocked && old.TeamLock != current.TeamLock)
+    if((current.TeamLock > vars.Unlocked && old.TeamLock != current.TeamLock) || (current.MissionSelected == vars.NoMission && current.Zone != 1 && current.Zone != 5))
     {
         // print("Team Unlocked");
         return true;
