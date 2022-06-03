@@ -1,4 +1,4 @@
-// Works on Homecoming version 27.3.4798, Beta version 27.3.4709, Cryptic version 27.4.4850.
+// Works on Homecoming version 27.3.4798, Beta version 27.3.4709, Cryptic version 27.4.4868.
 // Poorly cobbled together and maintained by Bloodom#8540 on discord, let me know if you have questions, requests for sub-objectives, or tips to improve this!
 
 state("cityofheroes", "Homecoming")
@@ -19,10 +19,10 @@ state("cityofheroes", "Beta")
 
 state("cityofheroes", "Cryptic")
 {
-    int MissionSelected: 0xBCFB00; 
-    int TeamLock: 0xBD1FDA; 
-    int Zone: 0x86A174;
-    int PopUp: 0x991E78; 
+    int MissionSelected: 0xBD0C00; 
+    int TeamLock: 0xBD30DA; 
+    int Zone: 0x86B264;
+    int PopUp: 0x992F78; 
 }
 
 startup
@@ -237,7 +237,7 @@ init
         break;
         case 23908352: version = "Beta";
         break;
-        case 23425024: version = "Cryptic";
+        case 23429120: version = "Cryptic";
         break;
         default: version = "Unknown!";
         break;
@@ -261,7 +261,7 @@ split
     if(old.MissionSelected != vars.NoMission 
         && old.MissionSelected != vars.ReturnToContact 
         && old.MissionSelected != current.MissionSelected
-        && ((!vars.maplocation.Contains(old.MissionSelected) && (vars.maplocation.Contains(current.MissionSelected) || current.MissionSelected == vars.NoMission || current.MissionSelected == vars.ReturnToContact) && old.MissionSelected != vars.MissionComplete)
+        && ((!vars.maplocation.Contains(old.MissionSelected) && (vars.maplocation.Contains(current.MissionSelected) || (current.MissionSelected == vars.NoMission && current.Zone != vars.SGBase) || current.MissionSelected == vars.ReturnToContact) && old.MissionSelected != vars.MissionComplete)
         || (vars.aftercalled.Contains(current.MissionSelected) && !vars.aftercalled.Contains(old.MissionSelected) && !vars.tfcontact.Contains(old.MissionSelected))))
     {
         // print("General & Teammate Loading Split");
@@ -270,7 +270,7 @@ split
 
     // Splitter associated with tfcontact list. Accounts for when the leader is calling in a mission they were not inside of when completed and calling the contact (i.e. having the contact name appear in the nav. status) would bypass the general split condition.
     else if(old.MissionSelected == vars.MissionComplete 
-        && (vars.tfcontact.Contains(current.MissionSelected) || current.MissionSelected == vars.NoMission || current.MissionSelected == vars.ReturnToContact))
+        && (vars.tfcontact.Contains(current.MissionSelected) || (current.Zone != vars.SGBase && (current.MissionSelected == vars.NoMission || current.MissionSelected == vars.ReturnToContact))))
     {
         // print("Mission Complete Split");
         return true;
@@ -287,9 +287,19 @@ split
 
     // Splitters associated with the autoassigned list, accounting for all of the auto-assigned mission splits (when a talk mission is followed by an auto-assigned door mission, it is handled as one split for team split consistency, unless it can be safely assumed the entire team will be out of mission prior to the talk mission).
     else if(vars.autoassigned.Contains(current.MissionSelected) 
-        && old.MissionSelected != current.MissionSelected)
+        && old.MissionSelected != current.MissionSelected
+        && current.Zone != vars.SGBase)
     {
         // print("Auto-assigned Split");
+        return true;
+    }
+
+    // Relating to a fix for when a player zones into an SG base from a completed mission and the next mission does not become active on the navigation status despite having the mission, leading to additional splits.
+    else if(current.Zone == vars.SGBase
+        && old.MissionSelected == vars.NoMission
+        && old.MissionSelected != current.MissionSelected)
+    {
+        // print("SGBase-fix Split");
         return true;
     }
 
