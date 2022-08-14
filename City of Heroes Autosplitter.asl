@@ -19,10 +19,10 @@ state("cityofheroes", "Beta")
 
 state("cityofheroes", "Cryptic")
 {
-    int MissionSelected: 0xBD0C00; 
-    int TeamLock: 0xBD30DA; 
-    int Zone: 0x86B264;
-    int PopUp: 0x992F78; 
+    int MissionSelected: 0xBD27B0; 
+    int TeamLock: 0xBD4C8A; 
+    int Zone: 0x86C344;
+    int PopUp: 0x9940B8; 
 }
 
 startup
@@ -164,7 +164,8 @@ startup
         /* Terror Volta (1) */ 690613405,
         /* Descent to the Hydra */ -1806663539,
         /* Prisoners of Eden */ -48054279, -2075576774,
-        /* Terror Volta (3) */ -1054439848, 438748461
+        /* Terror Volta (3) */ -1054439848, 438748461,
+        /* Heather Townshend */ -1708698706
     };
 
     // List of integers associated with the MissionSelected value of a sub-objective during a mission.
@@ -237,7 +238,7 @@ init
         break;
         case 23908352: version = "Beta";
         break;
-        case 23429120: version = "Cryptic";
+        case 23437312: version = "Cryptic";
         break;
         default: version = "Unknown!";
         break;
@@ -247,7 +248,7 @@ init
 start
 {
     // Starts the split once the TF/SF/Trial is started.
-    if(old.TeamLock > vars.Unlocked && current.TeamLock < vars.Unlocked && current.TeamLock > vars.Locked)
+    if((old.TeamLock > vars.Unlocked && current.TeamLock < vars.Unlocked && current.TeamLock > vars.Locked) || (current.Zone == vars.SGBase && old.MissionSelected == vars.NoMission && current.MissionSelected != vars.NoMission))
     {
         // print("Run Started");
         return true;
