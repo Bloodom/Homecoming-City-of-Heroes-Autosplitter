@@ -3,10 +3,10 @@
 
 state("cityofheroes", "Homecoming")
 {
-    int MissionSelected: 0xC0F530; // Navigation Status Window. MissionSelected should be 1068641 on Return to Contact, 16777216 on no mission, and 269502050 when mission is complete but the player is still in the mission (as well as other niche cases).
-    int TeamLock: 0xC11A02; // Team is locked/unlocked. TeamLock value should be 2031616 when the team is locked, and change to 2042374 (through 2042382) when unlocked (the value is 2031616 when in base, 0 when in loading and team is locked, and 10758 (through 10766) when in loading into base or LFGing and team is unlocked). To find, need to search 2 Byte of the 10758-related value and 0 when in mission.
-    int Zone: 0x8A2174; // Different values depending on the type of instance the player is in. The value is 1 when in an Overworld zone, 5 when in a Supergroup base, and varies when in a mission instance (usually 0 or 4).
-    int PopUp: 0x9C9578; // TF/SF/Trial completion pop-up. This address value will be 0 upon loading into a zone with no pop-up, < 400 when a mission pop-up, teleport prompt, hide prompt, or TT prompt appears, and > 400 on TF/SF/Trial complete pop-up. If re-finding this address, the value is often 316 on quit prompt.
+    int MissionSelected: 0xBD2770; // Navigation Status Window. MissionSelected should be 1068641 on Return to Contact, 16777216 on no mission, and 269502050 when mission is complete but the player is still in the mission (as well as other niche cases).
+    int TeamLock: 0xBD4C4A; // Team is locked/unlocked. TeamLock value should be 2031616 when the team is locked, and change to 2042374 (through 2042382) when unlocked (the value is 2031616 when in base, 0 when in loading and team is locked, and 10758 (through 10766) when in loading into base or LFGing and team is unlocked). To find, need to search 2 Byte of the 10758-related value and 0 when in mission.
+    int Zone: 0x86C2F4; // Different values depending on the type of instance the player is in. The value is 1 when in an Overworld zone, 5 when in a Supergroup base, and varies when in a mission instance (usually 0 or 4).
+    int PopUp: 0x994078; // TF/SF/Trial completion pop-up. This address value will be 0 upon loading into a zone with no pop-up, < 400 when a mission pop-up, teleport prompt, hide prompt, or TT prompt appears, and > 400 on TF/SF/Trial complete pop-up. If re-finding this address, the value is often 316 on quit prompt.
 }
 
 state("cityofheroes", "Beta")
@@ -234,11 +234,11 @@ init
     // Sets the proper server based on which is open.
     switch (modules.First().ModuleMemorySize)
     {
-        case 23912448: version = "Homecoming";
+        case 23437312: version = "Homecoming";
         break;
-        case 23908352: version = "Beta";
+        case 1: version = "Beta";
         break;
-        case 23437312: version = "Cryptic";
+        case 2: version = "Cryptic";
         break;
         default: version = "Unknown!";
         break;
