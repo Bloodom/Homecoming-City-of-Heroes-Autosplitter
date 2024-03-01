@@ -1,15 +1,15 @@
-// Works on Homecoming version 27.4.5121. Also supports Beta version 27.4.5087 and Cryptic version 27.4.4868, but often outdated.
-// Poorly cobbled together and maintained by Bloodom#8540 on discord, let me know if you have questions, requests for sub-objectives, or tips to improve this!
+// Works on Homecoming version 27.7.5928. Also supports Beta version 27.4.5087 and Cryptic version 27.4.4868, but these are often outdated.
+// Poorly cobbled together and maintained by Bloodom on discord, let me know if you have questions, requests for sub-objectives, or tips to improve this!
 
 state("cityofheroes", "Homecoming")
 {
-    int MissionSelected: 0xBDC350; // Navigation Status Window. MissionSelected should be 1068641 on Return to Contact, 16777216 on no mission, and 269502050 when mission is complete but the player is still in the mission (as well as other niche cases).
-    int TeamLock: 0xBDE822; // Team is locked/unlocked. TeamLock value (4 Byte) should be 2042527 (or higher) when unlocked, 2031616 when TF started, 0 on loadscreen (10911 if team not locked and loading INTO SG base), 2031616 in mission or in base (regardless of TF status). TeamLock value (2 Byte) should be 10911 (or higher) when unlocked, 0 when TF started, 0 on loadscreen (10911 if team not locked and loading INTO SG base), 0 in mission or in base (regardless of TF status). Best bet to find is to set 2 Byte and then keep checking for changed values starting/quitting TFs and check for 0 values, since the 5-digit value changes daily. 
-    int Zone: 0x8794F4; // Different values depending on the type of instance the player is in. The value is 1 when in an Overworld zone, 5 when in a Supergroup base, and varies when in a mission instance (usually 0 or 4).
-    int PopUp: 0x99E4F8; // TF/SF/Trial completion pop-up. This address value will be 0 upon loading into a zone with no pop-up, < 400 when a mission pop-up, teleport prompt, hide prompt, or TT prompt appears, and > 400 on TF/SF/Trial complete pop-up. If re-finding this address, the value is often 316 on quit prompt.
+    int MissionSelected: 0xBD6590; // Navigation Status Window. MissionSelected should be 1068641 on Return to Contact, 16777216 on no mission, and 269502050 when mission is complete but the player is still in the mission (as well as other niche cases).
+    int TeamLock: 0xBD8A76; // Team is locked/unlocked. TeamLock value (4 Byte) should be 2042527 (or higher) when unlocked, 2031616 when TF started, 0 on loadscreen (10911 if team not locked and loading INTO SG base), 2031616 in mission or in base (regardless of TF status). TeamLock value (2 Byte) should be 10911 (or higher) when unlocked, 0 when TF started, 0 on loadscreen (10911 if team not locked and loading INTO SG base), 0 in mission or in base (regardless of TF status). Best bet to find is to set 2 Byte and then keep checking for changed values starting/quitting TFs and check for 0 values, since the 5-digit value changes daily. 
+    int Zone: 0x872684; // Different values depending on the type of instance the player is in. The value is 1 when in an Overworld zone, 5 when in a Supergroup base, and varies when in a mission instance (usually 0 or 4).
+    int PopUp: 0x9982F8; // TF/SF/Trial completion pop-up. This address value will be 0 upon loading into a zone with no pop-up, < 400 when a mission pop-up, teleport prompt, hide prompt, or TT prompt appears, and > 400 on TF/SF/Trial complete pop-up. If re-finding this address, the value is often 316 on quit prompt.
 }
 
-state("cityofheroes", "Beta")
+state("cityofheroes", "Beta") 
 {
     int MissionSelected: 0xBD42B0;
     int TeamLock: 0xBD6782;
@@ -19,10 +19,10 @@ state("cityofheroes", "Beta")
 
 state("cityofheroes", "Cryptic")
 {
-    int MissionSelected: 0xBD27B0; 
-    int TeamLock: 0xBD4C8A; 
-    int Zone: 0x86C344;
-    int PopUp: 0x9940B8; 
+    int MissionSelected: 0xBD1820; 
+    int TeamLock: 0xBD3CEE; 
+    int Zone: 0x86D3F4;
+    int PopUp: 0x992DB8; 
 }
 
 startup
@@ -75,7 +75,7 @@ startup
         /* Numina */
         /* Mortimer Kal */
         /* Admiral Sutter */
-        /* Dr. Aeon */ 1042828100, /* Mission 2 to 3 */ 1479035226, -550617539, /* Mission 3 to 4/5 */ 858712818, /* Mission 5 to 6 */
+        /* Dr. Aeon */ 1042828100, /* Mission 2 to 3 */ 1479035226, /* Mission 3 to 4/5 */ 858712818, /* Mission 5 to 6 */
         /* Dr. Quaterfield */
         /* Sara Moore */
         /* Justin Augustine */
@@ -168,6 +168,37 @@ startup
         /* Heather Townshend */ -1708698706
     };
 
+    // List of integers associated with the MissionSelected value of an objective in a mission that was left early, leading to the auto-assigned mission value to reappear.
+    vars.leftearly = new List<int>
+    {
+        /* Positron pt. 1 */
+        /* Positron pt. 2 */
+        /* Synapse */
+        /* Penelope Yin */
+        /* Moonfire */
+        /* SF Op. Renault */
+        /* Citadel */
+        /* Ernesto Hess */
+        /* Manticore */
+        /* Ice Mistral */
+        /* Numina */
+        /* Mortimer Kal */
+        /* Admiral Sutter */
+        /* Dr. Aeon */ -1556956150
+        /* Dr. Quaterfield */
+        /* Justin Augustine */
+        /* Faathim the Kind */ 
+        /* Barracuda */
+        /* Tin Mage Mk. II */
+        /* Terror Volta (1) */
+        /* Descent to the Hydra */
+        /* Prisoners of Eden */
+        /* Terror Volta (3) */
+        /* Heather Townshend */
+    };
+
+
+
     // List of integers associated with the MissionSelected value of a sub-objective during a mission.
     vars.subobjective = new List<int>
     {
@@ -238,7 +269,7 @@ init
         break;
         case 1: version = "Beta";
         break;
-        case 2: version = "Cryptic";
+        case 23236608 : version = "Cryptic";
         break;
         default: version = "Unknown!";
         break;
@@ -289,7 +320,8 @@ split
     // Splitters associated with the autoassigned list, accounting for all of the auto-assigned mission splits (when a talk mission is followed by an auto-assigned door mission, it is handled as one split for team split consistency, unless it can be safely assumed the entire team will be out of mission prior to the talk mission).
     else if(vars.autoassigned.Contains(current.MissionSelected) 
         && old.MissionSelected != current.MissionSelected
-        && current.Zone != vars.SGBase)
+        && current.Zone != vars.SGBase
+        && !vars.leftearly.Contains(old.MissionSelected))
     {
         // print("Auto-assigned Split");
         return true;
