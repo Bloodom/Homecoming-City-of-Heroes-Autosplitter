@@ -1,20 +1,20 @@
-// Works on Homecoming version 27.7.5928. Also supports Beta version 27.4.5087 and Cryptic version 27.4.4868, but these are often outdated.
+// Works on Homecoming version 27.7.6043.2. Also supports Beta version 27.7.5940 and Cryptic version 27.4.4868, but these are often outdated.
 // Poorly cobbled together and maintained by Bloodom on discord, let me know if you have questions, requests for sub-objectives, or tips to improve this!
 
 state("cityofheroes", "Homecoming")
 {
-    int MissionSelected: 0xBD6590; // Navigation Status Window. MissionSelected should be 1068641 on Return to Contact, 16777216 on no mission, and 269502050 when mission is complete but the player is still in the mission (as well as other niche cases).
-    int TeamLock: 0xBD8A76; // Team is locked/unlocked. TeamLock value (4 Byte) should be 2042527 (or higher) when unlocked, 2031616 when TF started, 0 on loadscreen (10911 if team not locked and loading INTO SG base), 2031616 in mission or in base (regardless of TF status). TeamLock value (2 Byte) should be 10911 (or higher) when unlocked, 0 when TF started, 0 on loadscreen (10911 if team not locked and loading INTO SG base), 0 in mission or in base (regardless of TF status). Best bet to find is to set 2 Byte and then keep checking for changed values starting/quitting TFs and check for 0 values, since the 5-digit value changes daily. 
-    int Zone: 0x872684; // Different values depending on the type of instance the player is in. The value is 1 when in an Overworld zone, 5 when in a Supergroup base, and varies when in a mission instance (usually 0 or 4).
-    int PopUp: 0x9982F8; // TF/SF/Trial completion pop-up. This address value will be 0 upon loading into a zone with no pop-up, < 400 when a mission pop-up, teleport prompt, hide prompt, or TT prompt appears, and > 400 on TF/SF/Trial complete pop-up. If re-finding this address, the value is often 316 on quit prompt.
+    int MissionSelected: 0xBDE5C0; // Navigation Status Window. MissionSelected should be 1068641 on Return to Contact, 16777216 on no mission, and 269502050 when mission is complete but the player is still in the mission (as well as other niche cases).
+    int TeamLock: 0xBE0AB2; // Team is locked/unlocked. TeamLock value (4 Byte) should be 2042527 (or higher) when unlocked, 2031616 when TF started, 0 on loadscreen (10911 if team not locked and loading INTO SG base), 2031616 in mission or in base (regardless of TF status). TeamLock value (2 Byte) should be 10911 (or higher) when unlocked, 0 when TF started, 0 on loadscreen (10911 if team not locked and loading INTO SG base), 0 in mission or in base (regardless of TF status). Best bet to find is to set 2 Byte and then keep checking for changed values starting/quitting TFs and check for 0 values, since the 5-digit value changes daily. 
+    int Zone: 0x87B684; // Different values depending on the type of instance the player is in. The value is 1 when in an Overworld zone, 5 when in a Supergroup base, and varies when in a mission instance (usually 0 or 4).
+    int PopUp: 0x9A0478; // TF/SF/Trial completion pop-up. This address value will be 0 upon loading into a zone with no pop-up, < 400 when a mission pop-up, teleport prompt, hide prompt, or TT prompt appears, and > 400 on TF/SF/Trial complete pop-up. If re-finding this address, the value is often 316 on quit prompt.
 }
 
 state("cityofheroes", "Beta") 
 {
-    int MissionSelected: 0xBD42B0;
-    int TeamLock: 0xBD6782;
-    int Zone: 0x8714F4;
-    int PopUp: 0x996478;
+    int MissionSelected: 0xBD6590;
+    int TeamLock: 0xBD8A76;
+    int Zone: 0x872684;
+    int PopUp: 0x9982F8;
 }
 
 state("cityofheroes", "Cryptic")
@@ -226,6 +226,7 @@ startup
         /* Imperious */
         /* Lord Recluse */
         /* Ms. Liberty */
+        /* HM Lady Grey */ 373571353, -1170055000,
         /* Lady Grey */
         /* Barracuda */ -1943289237,
         /* Dr. Kahn */
@@ -260,16 +261,16 @@ startup
 
 init
 {
-    print(modules.First().ModuleMemorySize.ToString());
+    // print(modules.First().ModuleMemorySize.ToString());
 
     // Sets the proper server based on which is open.
     switch (modules.First().ModuleMemorySize)
     {
-        case 23408640: version = "Homecoming";
+        case 23289856: version = "Homecoming";
         break;
         case 1: version = "Beta";
         break;
-        case 23236608 : version = "Cryptic";
+        case 2 : version = "Cryptic";
         break;
         default: version = "Unknown!";
         break;
